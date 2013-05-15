@@ -1,4 +1,4 @@
-cryptic-auth
+Cryptic-Auth
 ============
 
 Simple, and Dev friendly public/private key authentication for the web (and anything else)
@@ -9,7 +9,7 @@ Simple, and Dev friendly public/private key authentication for the web (and anyt
 
 
 Problem
-=======
+-------
 
 There are too many applications that require a user/pass combination. With so many passwords it's natural to reuse a couple.
 
@@ -45,19 +45,19 @@ Server
 
 Pseudo server-side auth code:
 
-login_endpoint(username, message){
-  pub_key = get_user_pub_key(username);
-  
-  if (pub_key == null){
-    pub_key = cryptic-auth.get_pub_key(username);
+  login_endpoint(username, message){
+    pub_key = get_user_pub_key(username);
+    
+    if (pub_key == null){
+      pub_key = cryptic-auth.get_pub_key(username);
+    }
+    
+    if ( cryptic-auth.verify(username, pub_key, message) ){
+      return {"login":"successful"}
+    }else{
+      return {"login":"incorrect"}
+    }  
   }
-  
-  if ( cryptic-auth.verify(username, pub_key, message) ){
-    return {"login":"successful"}
-  }else{
-    return {"login":"incorrect"}
-  }  
-}
 
 Gears (how it really works)
 ---------------------------
