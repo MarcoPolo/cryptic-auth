@@ -25,6 +25,7 @@ Pub/Priv?
 
 * If it can be packaged well it would be cinch to setup. 
 * Client never sends a password! One click login!
+* Server doesn't need to store passwords, only public keys (heck you can put it in a plain text file for everyone to see, and still be golden!)
 
 Pub/private Keys for the web
 
@@ -62,17 +63,18 @@ Pseudo server-side auth code:
 Gears (how it really works)
 ---------------------------
 
-When a user creates a public key a copy is sent to auth.cryptic.io.
+Registration:  
 
-Then whenever a user first encounters your site, you fetch their pub-key from cryptic.
 
-If they are returning you should already have the pub_key stored, if not feel free to get it again from cryptic.
+A user keeps their public key/private key locally along with a preferred username.
 
-With the pub-key you will decrypt the message sent from the user. 
+A user first encounters your site and registers by signing the current time with their private key, and sends you the sig, public key, and username
 
-The message is simply the user's username encrypted with his private-key.
+You verify the sig with the public key, and then record the user's public key for verification later.
 
-By successfully decrypting the message you verified the user is indeed who they say they are.
+Login:  
+
+After the first time a user visits the site you should have their public key on record, so you can make sure that it's the same person who registered.
 
 
 
